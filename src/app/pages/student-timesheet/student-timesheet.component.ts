@@ -24,7 +24,7 @@ export class StudentTimesheetComponent {
   getSchedule() {
     this.scheduleService.getStudentSchedule({studentId:this.studentId}).subscribe(res => {
       this.response = res;
-      this.schedule = res?.data;
+      this.schedule = this.response?.data;
       this.highlightCurrentClass();
     });
   }
