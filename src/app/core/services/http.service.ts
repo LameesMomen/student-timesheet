@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, map, Observable, of } from 'rxjs';
-import { TimeSheetApi } from './timesheet.api';
+import { TimeSheetMethods } from './timesheet.methods';
 import { generateSessionId } from './generate_session_Id';
 import { ITimesheetRequest } from '../interfaces/timesheet-request.interface';
 import { ITimesheetResponse } from '../interfaces/timesheet-response.interface';
@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class HttpService extends TimeSheetApi {
+export class HttpService extends TimeSheetMethods {
     private readonly mockApiUrl = 'assets/mock/timesheet-mock.json';
 
   constructor(private http: HttpClient) {
