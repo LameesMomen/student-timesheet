@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "eb945776-83ee-4885-980d-78a12b093301",
+		"name": "Smart Student TimeSheet API",
+		"description": "API for retrieving student timesheet information",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23820372"
+	},
+	"item": [
+		{
+			"name": "Get Student Timesheet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "sessionID",
+						"value": "{{encryptedSessionId}}",
+						"description": "Encrypted timestamp + student ID"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"studentId\": \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4200/assets/mock/timesheet-mock.json",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4200",
+					"path": [
+						"assets",
+						"mock",
+						"timesheet-mock.json"
+					]
+				},
+				"description": "Retrieve timesheet data for a student by ID"
+			},
+			"response": [
+				{
+					"name": "Successful Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "sessionID",
+								"value": "MTY5MDAwMDAwMDAwOjEyMzQ1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"studentId\": \"12345\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4200/assets/mock/timesheet-mock.json",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4200",
+							"path": [
+								"assets",
+								"mock",
+								"timesheet-mock.json"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"success\": true,\n  \"data\": {\n    \"student\": {\n      \"studentId\": \"12345\",\n      \"studentName\": \"Lamees Zaki\"\n    },\n    \"schedule\": [\n      {\n        \"class\": \"Algorithms\",\n        \"start\": \"09:00\",\n        \"end\": \"10:30\",\n        \"day\": \"Monday\"\n      },\n      {\n        \"class\": \"Data Structures\",\n        \"start\": \"11:00\",\n        \"end\": \"12:30\",\n        \"day\": \"Monday\"\n      },\n      {\n        \"class\": \"Chemistery\",\n        \"start\": \"14:00\",\n        \"end\": \"15:30\",\n        \"day\": \"Tuesday\"\n      },\n      {\n        \"class\": \"Physics\",\n        \"start\": \"10:00\",\n        \"end\": \"11:30\",\n        \"day\": \"Wednesday\"\n      },\n      {\n        \"class\": \"Math\",\n        \"start\": \"13:00\",\n        \"end\": \"14:30\",\n        \"day\": \"Thursday\"\n      },\n      {\n        \"class\": \"Math\",\n        \"start\": \"01:00\",\n        \"end\": \"03:30\",\n        \"day\": \"Friday\"\n      }\n    ]\n  }\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"exec": [
+					"// Generate encrypted session ID (timestamp + studentId)",
+					"const timestamp = new Date().getTime();",
+					"const studentId = pm.request.body.raw ? JSON.parse(pm.request.body.raw).studentId : '12345';",
+					"const sessionId = btoa(`${timestamp}:${studentId}`);",
+					"pm.collectionVariables.set('encryptedSessionId', sessionId);",
+					"",
+					"// Update the header with the new session ID",
+					"pm.request.headers.upsert({",
+					"    key: 'sessionID',",
+					"    value: sessionId",
+					"});"
+				],
+				"type": "text/javascript"
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "encryptedSessionId",
+			"value": "MTY5MDAwMDAwMDAwOjEyMzQ1"
+		}
+	]
+}

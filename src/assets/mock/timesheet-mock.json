@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "data": {
+    "student": {
+      "studentId": "12345",
+      "studentName": "Lamees Zaki"
+    },
+    "schedule": [
+      {
+        "class": "Algorithms",
+        "start": "09:00",
+        "end": "10:30",
+        "day": "Monday"
+      },
+      {
+        "class": "Data Structures",
+        "start": "11:00",
+        "end": "12:30",
+        "day": "Monday"
+      },
+      {
+        "class": "Chemistery",
+        "start": "14:00",
+        "end": "15:30",
+        "day": "Tuesday"
+      },
+      {
+        "class": "Physics",
+        "start": "10:00",
+        "end": "11:30",
+        "day": "Wednesday"
+      },
+      {
+        "class": "Math",
+        "start": "13:00",
+        "end": "14:30",
+        "day": "Thursday"
+      },
+      {
+        "class": "Math",
+        "start": "01:00",
+        "end": "03:30",
+        "day": "Friday"
+      }
+    ]
+  }
+}
