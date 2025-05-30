@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IStudentTimeSheet } from '../../core/models/timesheet_model';
+import { IStudentTimeSheet } from '../../core/interfaces/timesheet_model.interface';
 import { StudentScheduleService } from '../../core/services/student-schedule.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

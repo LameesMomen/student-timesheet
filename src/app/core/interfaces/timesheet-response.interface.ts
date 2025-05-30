@@ -1,4 +1,4 @@
-import { IStudentTimeSheet } from "../models/timesheet_model";
+import { IStudentTimeSheet } from "./timesheet_model.interface";
 
 export interface ITimesheetResponse {
   success: boolean;

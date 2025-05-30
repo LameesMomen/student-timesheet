@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { delay, map, Observable, of } from 'rxjs';
-import { TimeSheetMethods } from './timesheet.methods';
-import { generateSessionId } from './generate_session_Id';
+import { TimeSheetMethods } from '../../shared/utils/timesheet.methods';
+import { generateSessionId } from '../../shared/utils/generate_session_Id';
 import { ITimesheetRequest } from '../interfaces/timesheet-request.interface';
 import { ITimesheetResponse } from '../interfaces/timesheet-response.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
