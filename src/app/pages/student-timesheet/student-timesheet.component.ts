@@ -10,11 +10,12 @@ import { ITimesheetResponse } from '../../core/interfaces/timesheet-response.int
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './student-timesheet.component.html',
-  styleUrl: './student-timesheet.component.scss'
+  styleUrl: './student-timesheet.component.scss',
 })
 export class StudentTimesheetComponent {
-  studentId:string = '';
-  response?: ITimesheetResponse;
+  studentId: string = '';
+  errorMessage?: string;
+  response?: ITimesheetResponse | null;
   schedule?: IStudentTimeSheet;
   currentClassIndex: number | null = null;
   nextClassIndex: number | null = null;
@@ -22,11 +23,21 @@ export class StudentTimesheetComponent {
   constructor(private scheduleService: StudentScheduleService) {}
 
   getSchedule() {
-    this.scheduleService.getStudentSchedule({studentId:this.studentId}).subscribe(res => {
-      this.response = res;
-      this.schedule = this.response?.data;
-      this.highlightCurrentClass();
-    });
+    this.scheduleService
+      .getStudentSchedule({ studentId: this.studentId })
+      .subscribe(
+        (res) => {
+          this.response = res;
+          this.schedule = this.response.data?.find(
+            (el) => el.student.studentId == this.studentId
+          );
+          this.highlightCurrentClass();
+        },
+        (err) => {
+          this.response = null;
+          this.errorMessage = err;
+        }
+      );
   }
 
   highlightCurrentClass() {
@@ -36,7 +47,7 @@ export class StudentTimesheetComponent {
 
     const todayClasses = this.schedule?.schedule
       .map((cls, index) => ({ ...cls, index }))
-      .filter(c => c.day === currentDay);
+      .filter((c) => c.day === currentDay);
 
     let current = null;
     let next = null;

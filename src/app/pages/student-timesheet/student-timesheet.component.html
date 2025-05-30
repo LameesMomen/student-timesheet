@@ -1,10 +1,16 @@
 <div class="container">
   <h2 class="title">Smart Student Timesheet</h2>
   <div class="form-group">
-    <input [(ngModel)]="studentId" placeholder="Enter Student ID" class="input-id" />
-    <button (click)="getSchedule()" [disabled]="!studentId" class="btn-fetch">Get Schedule</button>
+    <input
+      [(ngModel)]="studentId"
+      placeholder="Enter Student ID"
+      class="input-id"
+    />
+    <button (click)="getSchedule()" [disabled]="!studentId" class="btn-fetch">
+      Get Schedule
+    </button>
   </div>
-
+  @if(response?.data?.length){
   <div *ngIf="schedule" class="card">
     <div class="d-flex">
       <h3>{{ schedule.student.studentName }}'s Schedule</h3>
@@ -23,14 +29,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of schedule.schedule; let i = index"
-            [ngClass]="{'highlight': i === currentClassIndex, 'next': i === nextClassIndex}">
-          <td>{{item.class}}</td>
-          <td>{{item.day}}</td>
-          <td>{{item.start}}</td>
-          <td>{{item.end}}</td>
+        @for (item of schedule.schedule; track item.class; let i = $index) {
+        <tr
+          [ngClass]="{
+            highlight: i === currentClassIndex,
+            next: i === nextClassIndex
+          }"
+        >
+          <td>{{ item.class }}</td>
+          <td>{{ item.day }}</td>
+          <td>{{ item.start }}</td>
+          <td>{{ item.end }}</td>
         </tr>
+        }
       </tbody>
     </table>
   </div>
+  }@else if(errorMessage){
+  <div class="error-message">{{ errorMessage }}</div>
+  }
 </div>

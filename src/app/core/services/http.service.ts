@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, map, Observable, of } from 'rxjs';
+import { delay, filter, find, map, Observable, of } from 'rxjs';
 import { TimeSheetMethods } from '../../shared/utils/timesheet.methods';
 import { generateSessionId } from '../../shared/utils/generate_session_Id';
 import { ITimesheetRequest } from '../interfaces/timesheet-request.interface';
@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class HttpService extends TimeSheetMethods {
-    private readonly mockApiUrl = 'assets/mock/timesheet-mock.json';
+  private readonly mockApiUrl = 'assets/mock/timesheet-mock.json';
 
   constructor(private http: HttpClient) {
     super();
@@ -19,16 +19,23 @@ export class HttpService extends TimeSheetMethods {
   override getSchedule(
     request: ITimesheetRequest
   ): Observable<ITimesheetResponse> {
-    
     const sessionId = generateSessionId(request.studentId);
     const headers = new HttpHeaders({
-      'sessionID': sessionId
+      sessionID: sessionId,
     });
 
     return this.http.get<ITimesheetResponse>(this.mockApiUrl, { headers }).pipe(
-      delay(200), 
-      map(response => {
-        return response;
+      delay(200),
+      map((response) => {
+        const student = response.data?.filter(
+          (el) => el.student.studentId == request.studentId
+        );
+
+        if (!student?.length) {
+          throw new Error('Student ID not found');
+        }
+
+        return { ...response, data: student };
       })
     );
   }

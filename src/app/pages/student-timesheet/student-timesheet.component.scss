@@ -84,11 +84,18 @@
         background-color: #d4edda;
         font-weight: bold;
       }
-      
+
       .next {
         background-color: #cce5ff;
         font-style: italic;
       }
     }
+  }
+
+  .error-message {
+    color: #e74c3c;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 1rem;
   }
 }

@@ -1,6 +1,7 @@
 {
   "success": true,
-  "data": {
+  "data": [
+    {
     "student": {
       "studentId": "12345",
       "studentName": "Lamees Zaki"
@@ -38,10 +39,37 @@
       },
       {
         "class": "OOP",
-        "start": "01:00",
-        "end": "03:30",
+        "start": "04:00",
+        "end": "05:30",
+        "day": "Friday"
+      }
+    ]
+  },
+  {
+    "student": {
+      "studentId": "12345678",
+      "studentName": "Lamees Zaki2"
+    },
+    "schedule": [
+      {
+        "class": "Python",
+        "start": "09:00",
+        "end": "10:30",
+        "day": "Monday"
+      },
+      {
+        "class": "C#",
+        "start": "11:00",
+        "end": "12:30",
+        "day": "Tuesday"
+      },
+      {
+        "class": "JavaScript",
+        "start": "06:00",
+        "end": "08:30",
         "day": "Friday"
       }
     ]
   }
+  ]
 }
