@@ -24,8 +24,7 @@ export class HttpService extends TimeSheetMethods {
       sessionID: sessionId,
     });
 
-    return this.http.get<ITimesheetResponse>(this.mockApiUrl, { headers }).pipe(
-      delay(200),
+    return this.http.post<ITimesheetResponse>(this.mockApiUrl,request, { headers }).pipe(
       map((response) => {
         const student = response.data?.filter(
           (el) => el.student.studentId == request.studentId
